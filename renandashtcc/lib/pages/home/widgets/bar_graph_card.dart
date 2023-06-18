@@ -1,14 +1,36 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
-class BarGraphCard extends StatelessWidget {
-  BarGraphCard({Key? key}) : super(key: key);
+import '../controller/controller.dart';
+
+class BarGraphCard extends StatefulWidget {
+  const BarGraphCard({super.key});
+
+  @override
+  State<BarGraphCard> createState() => _BarGraphCardState();
+}
+
+class _BarGraphCardState extends State<BarGraphCard> {
+  Controller controller = GetIt.I.get<Controller>();
 
   final List<BarGraphModel> data = [
-    BarGraphModel(label: 'Homens', value: 50, color: const Color.fromARGB(255, 92, 175, 243)),
-    BarGraphModel(label: 'Mulheres', value: 100, color: const Color.fromARGB(255, 248, 107, 97)),
-    BarGraphModel(label: 'Negros', value: 100, color: const Color.fromARGB(255, 135, 230, 139)),
-    BarGraphModel(label: 'Brancos', value: 100, color: const Color.fromARGB(255, 241, 184, 97)),
+    BarGraphModel(
+        label: 'Homens',
+        value:  56,
+        color: const Color.fromARGB(255, 92, 175, 243)),
+    BarGraphModel(
+        label: 'Mulheres',
+        value: 43,
+        color: const Color.fromARGB(255, 248, 107, 97)),
+    BarGraphModel(
+        label: 'Negros',
+        value: 100,
+        color: const Color.fromARGB(255, 135, 230, 139)),
+    BarGraphModel(
+        label: 'Brancos',
+        value: 100,
+        color: const Color.fromARGB(255, 241, 184, 97)),
   ];
 
   @override
@@ -47,7 +69,7 @@ class BarGraphCard extends StatelessWidget {
                             ),
                           ),
                           PieChartSectionData(
-                            value: 100 - data[i].value.toDouble(),
+                            // value: 100 - data[i].value.toDouble(),
                             color: const Color(0xFFE4E4E4),
                             radius: 44,
                           ),
@@ -120,5 +142,6 @@ class BarGraphModel {
   final int value;
   final Color color;
 
-  BarGraphModel({required this.label, required this.value, required this.color});
+  BarGraphModel(
+      {required this.label, required this.value, required this.color});
 }

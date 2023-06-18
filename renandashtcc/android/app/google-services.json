@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "211826518707",
+    "project_id": "wide-office-315415",
+    "storage_bucket": "wide-office-315415.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211826518707:android:c31cf8588281a39f1e9ec6",
+        "android_client_info": {
+          "package_name": "com.example.renandashtcc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "211826518707-ib8l5fg4o14cpkl7mlkkedv05ujt839b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy0i3WxWl9C-biASxFMouz9ANV3Cx6j6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "211826518707-ib8l5fg4o14cpkl7mlkkedv05ujt839b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "211826518707-8knh5jet5p90l2k505mh28mhoth8gcvo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.renandashtcc"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
