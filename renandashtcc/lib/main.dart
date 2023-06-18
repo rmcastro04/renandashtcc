@@ -11,7 +11,7 @@ import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'firebase_options.dart';
-import 'model/teste._model.dart';
+import 'model/data_firebase_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

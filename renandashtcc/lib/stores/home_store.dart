@@ -15,32 +15,35 @@ class HomeStore extends Store {
   ValueNotifier<List<BarGraphModel>> circularProgressData = ValueNotifier([]);
   ValueNotifier<List<HealthModel>> health = ValueNotifier([]);
   ValueNotifier<List<String>> listStates = ValueNotifier([]);
-    ValueNotifier<List<String>> listIdhm = ValueNotifier([]);
-
+  ValueNotifier<List<String>> listIdhm = ValueNotifier([]);
 
   int stateSelected = 0;
   int? isSelected;
-
-  int index = 0;
+  bool isAnalfabetismo = false;
+  int index = 2017;
+  ValueNotifier<String>? selectedStateText = ValueNotifier<String>("Item 1");
 
   ValueNotifier<String> idhmView = ValueNotifier<String>("");
   ValueNotifier<String> analfabetismoView = ValueNotifier<String>("");
   ValueNotifier<String> rendaView = ValueNotifier<String>("");
   ValueNotifier<String> espVidaView = ValueNotifier<String>("");
-  ValueNotifier<String> espVidaHomemView = ValueNotifier<String>("");
-  ValueNotifier<String> espMulherView = ValueNotifier<String>("");
-  ValueNotifier<String> espVidaNegrosView = ValueNotifier<String>("");
-  ValueNotifier<String> espVidaBrancosView = ValueNotifier<String>("");
+  ValueNotifier<double> espVidaHomemView = ValueNotifier<double>(0);
+  ValueNotifier<double> espMulherView = ValueNotifier<double>(0);
+  ValueNotifier<double> espVidaNegrosView = ValueNotifier<double>(0);
+  ValueNotifier<double> espVidaBrancosView = ValueNotifier<double>(0);
 
   ValueNotifier<String> extremaProbrezaView = ValueNotifier<String>("");
-  ValueNotifier<String> analfabetismoHomemView = ValueNotifier<String>("");
-  ValueNotifier<String> analfabetismoMulherView = ValueNotifier<String>("");
-  ValueNotifier<String> analfabetismoNegrosView = ValueNotifier<String>("");
-  ValueNotifier<String> analfabetismoBrancosView = ValueNotifier<String>("");
+  ValueNotifier<double> analfabetismoHomemView = ValueNotifier<double>(0);
+  ValueNotifier<double> analfabetismoMulherView = ValueNotifier<double>(0);
+  ValueNotifier<double> analfabetismoNegrosView = ValueNotifier<double>(0);
+  ValueNotifier<double> analfabetismoBrancosView = ValueNotifier<double>(0);
   ValueNotifier<String> rendaHomemView = ValueNotifier<String>("");
   ValueNotifier<String> rendaMulherView = ValueNotifier<String>("");
   ValueNotifier<String> rendaNegrosView = ValueNotifier<String>("");
   ValueNotifier<String> rendaBrancosView = ValueNotifier<String>("");
+  ValueNotifier<String> textDataSelected = ValueNotifier<String>("Esperança de Vida ao nascer.");
+
+  ValueNotifier<String> valueDrop = ValueNotifier<String>("");
 
   Stream<String> streamDeDados = Stream.fromIterable([]);
 

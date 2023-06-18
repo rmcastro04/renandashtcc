@@ -14,27 +14,34 @@ class BarGraphCard extends StatefulWidget {
 class _BarGraphCardState extends State<BarGraphCard> {
   Controller controller = GetIt.I.get<Controller>();
 
-  final List<BarGraphModel> data = [
-    BarGraphModel(
-        label: 'Homens',
-        value:  56,
-        color: const Color.fromARGB(255, 92, 175, 243)),
-    BarGraphModel(
-        label: 'Mulheres',
-        value: 43,
-        color: const Color.fromARGB(255, 248, 107, 97)),
-    BarGraphModel(
-        label: 'Negros',
-        value: 100,
-        color: const Color.fromARGB(255, 135, 230, 139)),
-    BarGraphModel(
-        label: 'Brancos',
-        value: 100,
-        color: const Color.fromARGB(255, 241, 184, 97)),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<BarGraphModel> data = [
+      BarGraphModel(
+          label: 'Homens',
+          value: controller.store.isAnalfabetismo
+              ? controller.store.analfabetismoHomemView.value.toInt().floor()
+              : controller.store.espVidaHomemView.value.toInt().floor(),
+          color: const Color.fromARGB(255, 92, 175, 243)),
+      BarGraphModel(
+          label: 'Mulheres',
+          value: controller.store.isAnalfabetismo
+              ? controller.store.analfabetismoMulherView.value.toInt().floor()
+              : controller.store.espVidaHomemView.value.toInt().floor(),
+          color: const Color.fromARGB(255, 248, 107, 97)),
+      BarGraphModel(
+          label: 'Negros',
+          value: controller.store.isAnalfabetismo
+              ? controller.store.analfabetismoNegrosView.value.toInt().floor()
+              : controller.store.espVidaHomemView.value.toInt().floor(),
+          color: const Color.fromARGB(255, 135, 230, 139)),
+      BarGraphModel(
+          label: 'Brancos',
+          value: controller.store.isAnalfabetismo
+              ? controller.store.analfabetismoBrancosView.value.toInt().floor()
+              : controller.store.espVidaHomemView.value.toInt().floor(),
+          color: const Color.fromARGB(255, 241, 184, 97)),
+    ];
     return GridView.builder(
       itemCount: data.length,
       shrinkWrap: true,

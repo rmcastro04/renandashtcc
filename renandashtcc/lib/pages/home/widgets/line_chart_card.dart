@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_dashboard/responsive.dart';
 import 'package:flutter_dashboard/widgets/custom_card.dart';
 import 'package:get_it/get_it.dart';
+import '../../../app_state.dart';
 import '../../../stores/home_store.dart';
 import '../controller/controller.dart';
 
@@ -13,18 +12,27 @@ class LineChartCard extends StatefulWidget {
   _LineChartCardState createState() => _LineChartCardState();
 }
 
+List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+
 class _LineChartCardState extends State<LineChartCard> {
   String? selectedState;
   String? selectedProblem;
-  String? selectedYear = '2019';
+  String? selectedYear;
 
   HomeStore store = GetIt.I.get<HomeStore>();
   Controller controller = GetIt.I.get<Controller>();
+  late String dropdownValue;
+
+  @override
+  void initState() {
+    super.initState();
+    dropdownValue = store.listStates.value.first;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: controller.store,
+    return ValueListenableBuilder<AppState>(
+        valueListenable: controller.store.state,
         builder: (context, state, child) {
           return CustomCard(
             child: Row(
@@ -35,25 +43,32 @@ class _LineChartCardState extends State<LineChartCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildDropdown(
-                        label: "Selecione um Estado:",
-                        value: selectedState,
-                        items: store.listStates.value,
-                        onChanged: (String? newValue) {
-                          int selectedIndex;
+                      Container(
+                        child: _buildDropdown(
+                          label: "Selecione um Estado:",
+                          value: store.listVisitor.value[store.stateSelected]
+                              .territorialidades,
+                          items: store.listStates.value,
+                          onChanged: (String? newValue) {
+                            int selectedIndex;
 
-                          setState(() async {
-                            selectedState = newValue;
+                            setState(() async {
+                              selectedState = newValue;
+                              store.selectedStateText!.value = newValue!;
+                              store.listVisitor.value[store.stateSelected]
+                                      .territorialidades =
+                                  store.selectedStateText!.value;
 
-                            // Atualizar os valores selecionados
-                            selectedIndex =
-                                store.listStates.value.indexOf(newValue!);
+                              // Atualizar os valores selecionados
+                              selectedIndex =
+                                  store.listStates.value.indexOf(newValue);
 
-                            store.stateSelected =
-                                store.listStates.value.indexOf(newValue);
-                            await controller.getData();
-                          });
-                        },
+                              store.stateSelected =
+                                  store.listStates.value.indexOf(newValue);
+                              await controller.getData();
+                            });
+                          },
+                        ),
                       ),
                       SizedBox(height: 10),
                       if (selectedState == null)
@@ -71,14 +86,24 @@ class _LineChartCardState extends State<LineChartCard> {
                       SizedBox(height: 20),
                       _buildDropdown(
                         label: "Selecione um dado a ser visualizado:",
-                        value: selectedProblem,
+                        value: store.textDataSelected.value.toString(),
                         items: [
-                          'Taxa de Analfabetismo 18 anos ou mais',
+                          'Taxa de analfabetismo 18 anos ou mais',
                           'Esperança de Vida ao nascer.',
                         ],
                         onChanged: (String? newValue) {
                           setState(() {
+                            store.textDataSelected.value = newValue!;
                             selectedProblem = newValue;
+
+                            var isAnalfabetismo =
+                                newValue.contains("analfabetismo");
+                            controller.getData();
+                            if (isAnalfabetismo) {
+                              store.isAnalfabetismo = true;
+                            } else {
+                              store.isAnalfabetismo = false;
+                            }
                           });
                         },
                       ),
@@ -98,7 +123,7 @@ class _LineChartCardState extends State<LineChartCard> {
                       SizedBox(height: 20),
                       _buildDropdown(
                         label: "Selecione um Ano:",
-                        value: selectedYear,
+                        value: store.index.toString(),
                         items: [
                           '2017',
                           '2018',
@@ -107,6 +132,7 @@ class _LineChartCardState extends State<LineChartCard> {
                           '2021',
                         ],
                         onChanged: (String? newValue) {
+                          selectedYear = newValue;
                           setState(() {
                             selectedYear = newValue;
                             store.isSelected = int.parse(newValue!);
@@ -146,26 +172,6 @@ class _LineChartCardState extends State<LineChartCard> {
                   ),
                 ),
                 const SizedBox(width: 20),
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 20),
-                      AspectRatio(
-                        aspectRatio:
-                            Responsive.isMobile(context) ? 4 / 3 : 16 / 9,
-                        child: SvgPicture.asset(
-                          'assets/svg/brazil.svg',
-                          fit: BoxFit.contain,
-                          color: Color.fromARGB(255, 40, 43, 83),
-                          width: 50,
-                          height: 50,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           );
@@ -178,62 +184,49 @@ class _LineChartCardState extends State<LineChartCard> {
     required List<String> items,
     required void Function(String?) onChanged,
   }) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Color.fromARGB(255, 22, 32, 77),
-                ),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: Color.fromARGB(255, 22, 32, 77),
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: Colors.grey),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: value,
+              icon: Icon(Icons.arrow_drop_down),
+              iconSize: 24,
+              elevation: 16,
+              style: TextStyle(
+                color: Colors.deepPurple,
+                fontSize: 18,
               ),
-              SizedBox(height: 10),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(color: Colors.grey),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          isExpanded: true,
-                          icon: Padding(
-                            padding: EdgeInsets.only(left: 8),
-                            child: SvgPicture.asset(
-                              'assets/svg/down.svg',
-                              height: 8,
-                              width: 8,
-                              color: Colors.black,
-                            ),
-                          ),
-                          onChanged: onChanged,
-                          items: items.toSet().map((String item) {
-                            return DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: TextStyle(
-                                  color:
-                                      value == item ? Color(0xFF164B75) : null,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              onChanged: onChanged,
+              items: items
+                  .toSet()
+                  .toList()
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value,
+                    // overflow: TextOverflow.ellipsis,
+                  ),
+                );
+              }).toList(),
+            ),
           ),
         ),
       ],

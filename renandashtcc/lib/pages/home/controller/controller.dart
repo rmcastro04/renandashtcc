@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:flutter_dashboard/pages/home/widgets/bar_graph_card.dart';
 import 'package:flutter_dashboard/repositories/repository_impl.dart';
 import 'package:flutter_dashboard/stores/home_store.dart';
 
@@ -23,12 +20,10 @@ class Controller {
       print(failure.message);
     }, (sucess) {
       store.listVisitor.value = sucess;
-      // store.listVisitor.value[index].territorialidades;
 
       for (var data in sucess) {
         store.listStates.value.add(data.territorialidades);
       }
-      
 
       switch (store.index) {
         case 2017:
@@ -46,17 +41,13 @@ class Controller {
               .listVisitor.value[store.stateSelected].extremaPobreza2017
               .toString();
           store.analfabetismoHomemView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoHomem2017
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoHomem2017;
           store.analfabetismoMulherView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoMulher2017
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoMulher2017;
           store.analfabetismoNegrosView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoNegros2017
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoNegros2017;
           store.analfabetismoBrancosView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoBrancos2017
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoBrancos2017;
           store.rendaHomemView.value = store
               .listVisitor.value[store.stateSelected].rendaHomem2017
               .toString();
@@ -69,18 +60,14 @@ class Controller {
           store.rendaBrancosView.value = store
               .listVisitor.value[store.stateSelected].rendaBrancos2017
               .toString();
-          store.espVidaHomemView.value = store
-              .listVisitor.value[store.stateSelected].espHomem2017
-              .toString();
-          store.espMulherView.value = store
-              .listVisitor.value[store.stateSelected].espMulher2017
-              .toString();
-          store.espVidaNegrosView.value = store
-              .listVisitor.value[store.stateSelected].espNegros2017
-              .toString();
-          store.espVidaBrancosView.value = store
-              .listVisitor.value[store.stateSelected].espBrancos2017
-              .toString();
+          store.espVidaHomemView.value =
+              store.listVisitor.value[store.stateSelected].espHomem2017;
+          store.espMulherView.value =
+              store.listVisitor.value[store.stateSelected].espMulher2017;
+          store.espVidaNegrosView.value =
+              store.listVisitor.value[store.stateSelected].espNegros2017;
+          store.espVidaBrancosView.value =
+              store.listVisitor.value[store.stateSelected].espBrancos2017;
           break;
         case 2018:
           store.idhmView.value =
@@ -97,17 +84,13 @@ class Controller {
               .listVisitor.value[store.stateSelected].extremaPobreza2018
               .toString();
           store.analfabetismoHomemView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoHomem2018
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoHomem2018;
           store.analfabetismoMulherView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoMulher2018
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoMulher2018;
           store.analfabetismoNegrosView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoNegros2018
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoNegros2018;
           store.analfabetismoBrancosView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoBrancos2018
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoBrancos2018;
           store.rendaHomemView.value = store
               .listVisitor.value[store.stateSelected].rendaHomem2018
               .toString();
@@ -120,18 +103,14 @@ class Controller {
           store.rendaBrancosView.value = store
               .listVisitor.value[store.stateSelected].rendaBrancos2018
               .toString();
-          store.espVidaHomemView.value = store
-              .listVisitor.value[store.stateSelected].espHomem2018
-              .toString();
-          store.espMulherView.value = store
-              .listVisitor.value[store.stateSelected].espMulher2018
-              .toString();
-          store.espVidaNegrosView.value = store
-              .listVisitor.value[store.stateSelected].espNegros2018
-              .toString();
-          store.espVidaBrancosView.value = store
-              .listVisitor.value[store.stateSelected].espBrancos2018
-              .toString();
+          store.espVidaHomemView.value =
+              store.listVisitor.value[store.stateSelected].espHomem2018;
+          store.espMulherView.value =
+              store.listVisitor.value[store.stateSelected].espMulher2018;
+          store.espVidaNegrosView.value =
+              store.listVisitor.value[store.stateSelected].espNegros2018;
+          store.espVidaBrancosView.value =
+              store.listVisitor.value[store.stateSelected].espBrancos2018;
           break;
         case 2019:
           store.idhmView.value =
@@ -148,17 +127,13 @@ class Controller {
               .listVisitor.value[store.stateSelected].extremaPobreza2019
               .toString();
           store.analfabetismoHomemView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoHomem2019
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoHomem2019;
           store.analfabetismoMulherView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoMulher2019
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoMulher2019;
           store.analfabetismoNegrosView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoNegros2019
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoNegros2019;
           store.analfabetismoBrancosView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoBrancos2019
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoBrancos2019;
           store.rendaHomemView.value = store
               .listVisitor.value[store.stateSelected].rendaHomem2019
               .toString();
@@ -171,18 +146,14 @@ class Controller {
           store.rendaBrancosView.value = store
               .listVisitor.value[store.stateSelected].rendaBrancos2019
               .toString();
-          store.espVidaHomemView.value = store
-              .listVisitor.value[store.stateSelected].espHomem2019
-              .toString();
-          store.espMulherView.value = store
-              .listVisitor.value[store.stateSelected].espMulher2019
-              .toString();
-          store.espVidaNegrosView.value = store
-              .listVisitor.value[store.stateSelected].espNegros2019
-              .toString();
-          store.espVidaBrancosView.value = store
-              .listVisitor.value[store.stateSelected].espBrancos2019
-              .toString();
+          store.espVidaHomemView.value =
+              store.listVisitor.value[store.stateSelected].espHomem2019;
+          store.espMulherView.value =
+              store.listVisitor.value[store.stateSelected].espMulher2019;
+          store.espVidaNegrosView.value =
+              store.listVisitor.value[store.stateSelected].espNegros2019;
+          store.espVidaBrancosView.value =
+              store.listVisitor.value[store.stateSelected].espBrancos2019;
           break;
         case 2020:
           store.idhmView.value =
@@ -199,17 +170,13 @@ class Controller {
               .listVisitor.value[stateSelected].extremaPobreza2020
               .toString();
           store.analfabetismoHomemView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoHomem2020
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoHomem2020;
           store.analfabetismoMulherView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoMulher2020
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoMulher2020;
           store.analfabetismoNegrosView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoNegros2020
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoNegros2020;
           store.analfabetismoBrancosView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoBrancos2020
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoBrancos2020;
           store.rendaHomemView.value = store
               .listVisitor.value[store.stateSelected].rendaHomem2020
               .toString();
@@ -222,18 +189,14 @@ class Controller {
           store.rendaBrancosView.value = store
               .listVisitor.value[store.stateSelected].rendaBrancos2020
               .toString();
-          store.espVidaHomemView.value = store
-              .listVisitor.value[store.stateSelected].espHomem2020
-              .toString();
-          store.espMulherView.value = store
-              .listVisitor.value[store.stateSelected].espMulher2020
-              .toString();
-          store.espVidaNegrosView.value = store
-              .listVisitor.value[store.stateSelected].espNegros2020
-              .toString();
-          store.espVidaBrancosView.value = store
-              .listVisitor.value[store.stateSelected].espBrancos2020
-              .toString();
+          store.espVidaHomemView.value =
+              store.listVisitor.value[store.stateSelected].espHomem2020;
+          store.espMulherView.value =
+              store.listVisitor.value[store.stateSelected].espMulher2020;
+          store.espVidaNegrosView.value =
+              store.listVisitor.value[store.stateSelected].espNegros2020;
+          store.espVidaBrancosView.value =
+              store.listVisitor.value[store.stateSelected].espBrancos2020;
           break;
         case 2021:
           store.idhmView.value =
@@ -250,17 +213,13 @@ class Controller {
               .listVisitor.value[store.stateSelected].extremaPobreza2021
               .toString();
           store.analfabetismoHomemView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoHomem2021
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoHomem2021;
           store.analfabetismoMulherView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoMulher2021
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoMulher2021;
           store.analfabetismoNegrosView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoNegros2021
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoNegros2021;
           store.analfabetismoBrancosView.value = store
-              .listVisitor.value[store.stateSelected].analfabetismoBrancos2021
-              .toString();
+              .listVisitor.value[store.stateSelected].analfabetismoBrancos2021;
           store.rendaHomemView.value = store
               .listVisitor.value[store.stateSelected].rendaHomem2021
               .toString();
@@ -273,18 +232,14 @@ class Controller {
           store.rendaBrancosView.value = store
               .listVisitor.value[store.stateSelected].rendaBrancos2021
               .toString();
-          store.espVidaHomemView.value = store
-              .listVisitor.value[store.stateSelected].espHomem2021
-              .toString();
-          store.espMulherView.value = store
-              .listVisitor.value[store.stateSelected].espMulher2021
-              .toString();
-          store.espVidaNegrosView.value = store
-              .listVisitor.value[store.stateSelected].espNegros2021
-              .toString();
-          store.espVidaBrancosView.value = store
-              .listVisitor.value[store.stateSelected].espBrancos2021
-              .toString();
+          store.espVidaHomemView.value =
+              store.listVisitor.value[store.stateSelected].espHomem2021;
+          store.espMulherView.value =
+              store.listVisitor.value[store.stateSelected].espMulher2021;
+          store.espVidaNegrosView.value =
+              store.listVisitor.value[store.stateSelected].espNegros2021;
+          store.espVidaBrancosView.value =
+              store.listVisitor.value[store.stateSelected].espBrancos2021;
           break;
         default:
           store.idhmView.value = store.listVisitor.value[0].idhm2017.toString();
@@ -297,13 +252,13 @@ class Controller {
           store.extremaProbrezaView.value =
               store.listVisitor.value[0].extremaPobreza2017.toString();
           store.analfabetismoHomemView.value =
-              store.listVisitor.value[0].analfabetismoHomem2017.toString();
+              store.listVisitor.value[0].analfabetismoHomem2017;
           store.analfabetismoMulherView.value =
-              store.listVisitor.value[0].analfabetismoMulher2017.toString();
+              store.listVisitor.value[0].analfabetismoMulher2017;
           store.analfabetismoNegrosView.value =
-              store.listVisitor.value[0].analfabetismoNegros2017.toString();
+              store.listVisitor.value[0].analfabetismoNegros2017;
           store.analfabetismoBrancosView.value =
-              store.listVisitor.value[0].analfabetismoBrancos2017.toString();
+              store.listVisitor.value[0].analfabetismoBrancos2017;
           store.rendaHomemView.value =
               store.listVisitor.value[0].rendaHomem2017.toString();
           store.rendaMulherView.value =
@@ -313,13 +268,12 @@ class Controller {
           store.rendaBrancosView.value =
               store.listVisitor.value[0].rendaBrancos2017.toString();
           store.espVidaHomemView.value =
-              store.listVisitor.value[0].espHomem2017.toString();
-          store.espMulherView.value =
-              store.listVisitor.value[0].espMulher2017.toString();
+              store.listVisitor.value[0].espHomem2017;
+          store.espMulherView.value = store.listVisitor.value[0].espMulher2017;
           store.espVidaNegrosView.value =
-              store.listVisitor.value[0].espNegros2017.toString();
+              store.listVisitor.value[0].espNegros2017;
           store.espVidaBrancosView.value =
-              store.listVisitor.value[0].espBrancos2017.toString();
+              store.listVisitor.value[0].espBrancos2017;
           break;
       }
 
@@ -345,26 +299,7 @@ class Controller {
             value: "${store.extremaProbrezaView.value}%",
             title: "EXTREMA POBREZA"),
       ];
-      final List<BarGraphModel> data = [
-        BarGraphModel(
-            label: 'Homens',
-            value: 100,
-            color: const Color.fromARGB(255, 92, 175, 243)),
-        BarGraphModel(
-            label: 'Mulheres',
-            value: 100,
-            color: const Color.fromARGB(255, 248, 107, 97)),
-        BarGraphModel(
-            label: 'Negros',
-            value: 100,
-            color: const Color.fromARGB(255, 135, 230, 139)),
-        BarGraphModel(
-            label: 'Brancos',
-            value: 100,
-            color: const Color.fromARGB(255, 241, 184, 97)),
-      ];
 
-      store.circularProgressData.value = data;
       store.health.value = healthDetails;
 
       Future.delayed(Duration(microseconds: 1), () {
