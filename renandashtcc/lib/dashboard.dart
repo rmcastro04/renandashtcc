@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/app_state.dart';
 import 'package:flutter_dashboard/pages/home/controller/controller.dart';
 import 'package:flutter_dashboard/pages/home/home_page.dart';
-import 'package:flutter_dashboard/pages/home/widgets/activity_details_card.dart';
 import 'package:flutter_dashboard/stores/home_store.dart';
 import 'package:flutter_dashboard/widgets/menu.dart';
 import 'package:flutter_dashboard/Responsive.dart';
@@ -21,14 +20,6 @@ HomeStore store = GetIt.I.get<HomeStore>();
 
 class _DashBoardState extends State<DashBoard> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-
-  // @override
-  // void initState() {
-  //   WidgetsBinding.instance.addPostFrameCallback((_) async {
-  //     await controller.getData();
-  //   });
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {

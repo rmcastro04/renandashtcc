@@ -6,16 +6,18 @@ import 'package:flutter_dashboard/stores/store.dart';
 import '../app_state.dart';
 import '../model/health_model.dart';
 import '../model/data_firebase_model.dart';
+import '../model/list_idhm_model.dart';
 import '../pages/home/widgets/bar_graph_card.dart';
 
 class HomeStore extends Store {
   ValueNotifier<AppState> state = ValueNotifier<AppState>(AppState());
 
-  ValueNotifier<List<DataFirebaseModel>> listVisitor = ValueNotifier([]);
+  ValueNotifier<List<DataFirebaseModel>> dataInfoList = ValueNotifier([]);
   ValueNotifier<List<BarGraphModel>> circularProgressData = ValueNotifier([]);
   ValueNotifier<List<HealthModel>> health = ValueNotifier([]);
   ValueNotifier<List<String>> listStates = ValueNotifier([]);
   ValueNotifier<List<String>> listIdhm = ValueNotifier([]);
+  ValueNotifier<List<ListIdhmModel>> dataRankingIdhm = ValueNotifier([]);
 
   int stateSelected = 0;
   int? isSelected;

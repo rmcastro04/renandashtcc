@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/const.dart';
@@ -8,10 +7,8 @@ import 'package:flutter_dashboard/repositories/repository_impl.dart';
 import 'package:flutter_dashboard/stores/home_store.dart';
 import 'package:get_it/get_it.dart';
 
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'firebase_options.dart';
-import 'model/data_firebase_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

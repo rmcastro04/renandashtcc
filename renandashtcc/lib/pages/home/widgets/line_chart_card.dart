@@ -46,7 +46,7 @@ class _LineChartCardState extends State<LineChartCard> {
                       Container(
                         child: _buildDropdown(
                           label: "Selecione um Estado:",
-                          value: store.listVisitor.value[store.stateSelected]
+                          value: store.dataInfoList.value[store.stateSelected]
                               .territorialidades,
                           items: store.listStates.value,
                           onChanged: (String? newValue) {
@@ -55,7 +55,7 @@ class _LineChartCardState extends State<LineChartCard> {
                             setState(() async {
                               selectedState = newValue;
                               store.selectedStateText!.value = newValue!;
-                              store.listVisitor.value[store.stateSelected]
+                              store.dataInfoList.value[store.stateSelected]
                                       .territorialidades =
                                   store.selectedStateText!.value;
 
@@ -75,7 +75,7 @@ class _LineChartCardState extends State<LineChartCard> {
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 12),
                           child: Text(
-                            'Estado selecionado: ${store.listVisitor.value[store.stateSelected].territorialidades}',
+                            'Estado selecionado: ${store.dataInfoList.value[store.stateSelected].territorialidades}',
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
@@ -134,6 +134,7 @@ class _LineChartCardState extends State<LineChartCard> {
                         onChanged: (String? newValue) {
                           selectedYear = newValue;
                           setState(() {
+                            store.dataRankingIdhm.value = [];
                             selectedYear = newValue;
                             store.isSelected = int.parse(newValue!);
                             if (selectedYear == "2017") {

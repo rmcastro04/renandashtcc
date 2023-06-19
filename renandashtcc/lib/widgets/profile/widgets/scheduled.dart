@@ -2,17 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/model/scheduled_model.dart';
 import 'package:flutter_dashboard/widgets/custom_card.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 
-class Scheduled extends StatelessWidget {
-  Scheduled({Key? key});
+import '../../../pages/home/controller/controller.dart';
 
-  final List<ScheduledModel> scheduled = [
-    ScheduledModel(city: 'BRASÍLIA', idh: 0.814),
-    ScheduledModel(city: 'SÃO PAULO', idh: 0.806),
-    ScheduledModel(city: 'SANTA CATARINA', idh: 0.792),
-    ScheduledModel(city: 'MINAS GERAIS', idh: 0.774),
-    ScheduledModel(city: 'ESPIRITO SANTO', idh: 0.771),
-  ];
+class Scheduled extends StatefulWidget {
+  const Scheduled({super.key});
+
+  @override
+  State<Scheduled> createState() => _ScheduledState();
+}
+
+class _ScheduledState extends State<Scheduled> {
+// final List<ScheduledModel> scheduled = [
+//     ScheduledModel(city: 'BRASÍLIA', idh: 0.814),
+//     ScheduledModel(city: 'SÃO PAULO', idh: 0.806),
+//     ScheduledModel(city: 'SANTA CATARINA', idh: 0.792),
+//     ScheduledModel(city: 'MINAS GERAIS', idh: 0.774),
+//     ScheduledModel(city: 'ESPIRITO SANTO', idh: 0.771),
+//   ];
+  Controller controller = GetIt.I.get<Controller>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +35,7 @@ class Scheduled extends StatelessWidget {
         const SizedBox(
           height: 12,
         ),
-        for (var i = 0; i < scheduled.length; i++)
+        for (var i = 0; i < 5; i++)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5),
             child: CustomCard(
@@ -39,7 +48,7 @@ class Scheduled extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${scheduled[i].city}',
+                          '${controller.store.dataRankingIdhm.value[i].state}',
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
@@ -48,7 +57,7 @@ class Scheduled extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'IDHM: ${scheduled[i].idh.toStringAsFixed(3)}',
+                          'IDHM: ${controller.store.dataRankingIdhm.value[i].idhm.toStringAsFixed(3)}',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
