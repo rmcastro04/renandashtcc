@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_charts/flutter_charts.dart';
 import 'package:flutter_dashboard/widgets/custom_card.dart';
 import 'package:get_it/get_it.dart';
 import '../../../app_state.dart';
 import '../../../stores/home_store.dart';
 import '../controller/controller.dart';
+import 'bar_chart_custom_widget.dart';
 
 class LineChartCard extends StatefulWidget {
   LineChartCard({Key? key});
@@ -11,8 +13,6 @@ class LineChartCard extends StatefulWidget {
   @override
   _LineChartCardState createState() => _LineChartCardState();
 }
-
-List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 
 class _LineChartCardState extends State<LineChartCard> {
   String? selectedState;
@@ -32,27 +32,41 @@ class _LineChartCardState extends State<LineChartCard> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<AppState>(
-        valueListenable: controller.store.state,
-        builder: (context, state, child) {
-          return CustomCard(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        child: _buildDropdown(
+      valueListenable: controller.store.state,
+      builder: (context, state, child) {
+        return CustomCard(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 2,
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildDropdown(
                           label: "Selecione um Estado:",
                           value: store.dataInfoList.value[store.stateSelected]
                               .territorialidades,
                           items: store.listStates.value,
-                          onChanged: (String? newValue) {
+                          onChanged: (String? newValue) async {
                             int selectedIndex;
 
-                            setState(() async {
+                            setState(() {
                               selectedState = newValue;
                               store.selectedStateText!.value = newValue!;
                               store.dataInfoList.value[store.stateSelected]
@@ -65,118 +79,194 @@ class _LineChartCardState extends State<LineChartCard> {
 
                               store.stateSelected =
                                   store.listStates.value.indexOf(newValue);
-                              await controller.getData();
+                            });
+
+                            await controller.getData();
+                          },
+                        ),
+                        SizedBox(height: 10),
+                        if (selectedState == null)
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Text(
+                              'Estado selecionado: ${store.dataInfoList.value[store.stateSelected].territorialidades}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        SizedBox(height: 20),
+                        _buildDropdown(
+                          label: "Selecione um dado a ser visualizado:",
+                          value: store.textDataSelected.value.toString(),
+                          items: [
+                            'Taxa de analfabetismo 18 anos ou mais',
+                            'Esperança de Vida ao nascer.',
+                          ],
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              store.textDataSelected.value = newValue!;
+                              selectedProblem = newValue;
+
+                              var isAnalfabetismo =
+                                  newValue.contains("analfabetismo");
+                              if (isAnalfabetismo) {
+                                store.isAnalfabetismo = true;
+                              } else {
+                                store.isAnalfabetismo = false;
+                              }
+
+                              controller.getData();
                             });
                           },
                         ),
-                      ),
-                      SizedBox(height: 10),
-                      if (selectedState == null)
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Text(
-                            'Estado selecionado: ${store.dataInfoList.value[store.stateSelected].territorialidades}',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
+                        SizedBox(height: 10),
+                        if (selectedProblem != null)
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Text(
+                              'Dado selecionado: $selectedProblem',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
-                        ),
-                      SizedBox(height: 20),
-                      _buildDropdown(
-                        label: "Selecione um dado a ser visualizado:",
-                        value: store.textDataSelected.value.toString(),
-                        items: [
-                          'Taxa de analfabetismo 18 anos ou mais',
-                          'Esperança de Vida ao nascer.',
-                        ],
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            store.textDataSelected.value = newValue!;
-                            selectedProblem = newValue;
+                        SizedBox(height: 20),
+                        _buildDropdown(
+                          label: "Selecione um Ano:",
+                          value: store.index.toString(),
+                          items: [
+                            '2017',
+                            '2018',
+                            '2019',
+                            '2020',
+                            '2021',
+                          ],
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              store.dataRankingIdhm.value = [];
+                              selectedYear = newValue;
+                              store.isYearSelected = int.parse(newValue!);
 
-                            var isAnalfabetismo =
-                                newValue.contains("analfabetismo");
-                            controller.getData();
-                            if (isAnalfabetismo) {
-                              store.isAnalfabetismo = true;
-                            } else {
-                              store.isAnalfabetismo = false;
-                            }
-                          });
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      if (selectedProblem != null)
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Text(
-                            'Dado selecionado: $selectedProblem',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
+                              if (selectedYear == "2017") {
+                                store.index = 2017;
+                              } else if (selectedYear == "2018") {
+                                store.index = 2018;
+                              } else if (selectedYear == "2019") {
+                                store.index = 2019;
+                              } else if (selectedYear == "2020") {
+                                store.index = 2020;
+                              } else if (selectedYear == "2021") {
+                                store.index = 2021;
+                              }
+
+                              controller.getData();
+                            });
+                          },
+                        ),
+                        SizedBox(height: 10),
+                        if (store.isYearSelected != null)
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Text(
+                              'Ano selecionado: ${store.isYearSelected}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
-                        ),
-                      SizedBox(height: 20),
-                      _buildDropdown(
-                        label: "Selecione um Ano:",
-                        value: store.index.toString(),
-                        items: [
-                          '2017',
-                          '2018',
-                          '2019',
-                          '2020',
-                          '2021',
-                        ],
-                        onChanged: (String? newValue) {
-                          selectedYear = newValue;
-                          setState(() {
-                            store.dataRankingIdhm.value = [];
-                            selectedYear = newValue;
-                            store.isSelected = int.parse(newValue!);
-                            if (selectedYear == "2017") {
-                              controller.getData();
-                              store.index = 2017;
-                            } else if (selectedYear == "2018") {
-                              controller.getData();
-                              store.index = 2018;
-                            } else if (selectedYear == "2019") {
-                              controller.getData();
-                              store.index = 2019;
-                            } else if (selectedYear == "2020") {
-                              controller.getData();
-                              store.index = 2020;
-                            } else if (selectedYear == "2021") {
-                              controller.getData();
-                              store.index = 2021;
-                            }
-                          });
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      if (store.isSelected != null)
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Text(
-                            'Ano selecionado: ${store.isSelected}',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-                const SizedBox(width: 20),
-              ],
-            ),
-          );
-        });
+              ),
+              SizedBox(width: 20),
+              Column(
+                children: [
+                  Text(
+                    "Renda ferentente ao ano de ${store.isYearSelected ?? "2017"}",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  SizedBox(height: 20),
+                  FittedBox(
+                    fit: BoxFit.contain,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      height: 300,
+                      width: 300,
+                      child: BarChartCustomCustomWidget(
+                        icomeMens:
+                            double.parse(controller.store.rendaHomemView.value),
+                        icomePersonWhite: double.parse(
+                            controller.store.rendaBrancosView.value),
+                        incomeWomens: double.parse(
+                            controller.store.rendaMulheresView.value),
+                        icomePersonBlack: double.parse(
+                            controller.store.rendaNegrosView.value),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget chartToRun() {
+    List<List<double>> rendaHomemValues = [
+      [
+        double.parse(store.rendaHomemView.value),
+        double.parse(store.rendaMulheresView.value),
+        double.parse(store.rendaNegrosView.value),
+        double.parse(store.rendaBrancosView.value),
+      ]
+    ];
+
+    LabelLayoutStrategy? xContainerLabelLayoutStrategy;
+    ChartData chartData;
+    ChartOptions chartOptions = const ChartOptions();
+    chartData = ChartData(
+      dataRowsColors: [
+        Colors.blue,
+      ],
+      dataRows: rendaHomemValues,
+      xUserLabels: const ['Homens', 'Mulheres', 'Negros', 'Brancos'],
+      dataRowsLegends: [
+        'Renda referente ao ano de ${store.isYearSelected ?? "2017"}',
+      ],
+      chartOptions: chartOptions,
+    );
+    var verticalBarChartContainer = VerticalBarChartTopContainer(
+      chartData: chartData,
+      xContainerLabelLayoutStrategy: xContainerLabelLayoutStrategy,
+    );
+
+    var verticalBarChart = VerticalBarChart(
+      painter: VerticalBarChartPainter(
+        verticalBarChartContainer: verticalBarChartContainer,
+      ),
+    );
+    return verticalBarChart;
   }
 
   Widget _buildDropdown({
@@ -198,11 +288,12 @@ class _LineChartCardState extends State<LineChartCard> {
         ),
         SizedBox(height: 10),
         Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            border: Border.all(color: Colors.grey),
+            border: Border.all(
+              color: Colors.grey, // Cor da borda
+              width: 1.0, // Largura da borda
+            ),
+            borderRadius: BorderRadius.circular(8.0), // Raio da borda
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
@@ -211,7 +302,7 @@ class _LineChartCardState extends State<LineChartCard> {
               iconSize: 24,
               elevation: 16,
               style: TextStyle(
-                color: Colors.deepPurple,
+                color: Colors.black,
                 fontSize: 18,
               ),
               onChanged: onChanged,
@@ -221,9 +312,12 @@ class _LineChartCardState extends State<LineChartCard> {
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(
-                    value,
-                    // overflow: TextOverflow.ellipsis,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text(
+                      value,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 );
               }).toList(),

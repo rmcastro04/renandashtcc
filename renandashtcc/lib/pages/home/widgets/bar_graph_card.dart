@@ -27,19 +27,19 @@ class _BarGraphCardState extends State<BarGraphCard> {
           label: 'Mulheres',
           value: controller.store.isAnalfabetismo
               ? controller.store.analfabetismoMulherView.value.toInt().floor()
-              : controller.store.espVidaHomemView.value.toInt().floor(),
+              : controller.store.espMulherView.value.toInt().floor(),
           color: const Color.fromARGB(255, 248, 107, 97)),
       BarGraphModel(
           label: 'Negros',
           value: controller.store.isAnalfabetismo
               ? controller.store.analfabetismoNegrosView.value.toInt().floor()
-              : controller.store.espVidaHomemView.value.toInt().floor(),
+              : controller.store.espVidaNegrosView.value.toInt().floor(),
           color: const Color.fromARGB(255, 135, 230, 139)),
       BarGraphModel(
           label: 'Brancos',
           value: controller.store.isAnalfabetismo
               ? controller.store.analfabetismoBrancosView.value.toInt().floor()
-              : controller.store.espVidaHomemView.value.toInt().floor(),
+              : controller.store.espVidaBrancosView.value.toInt().floor(),
           color: const Color.fromARGB(255, 241, 184, 97)),
     ];
     return GridView.builder(
@@ -68,7 +68,6 @@ class _BarGraphCardState extends State<BarGraphCard> {
                             value: data[i].value.toDouble(),
                             color: data[i].color,
                             title: '${data[i].value}%',
-                            radius: 40,
                             titleStyle: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -76,7 +75,7 @@ class _BarGraphCardState extends State<BarGraphCard> {
                             ),
                           ),
                           PieChartSectionData(
-                            // value: 100 - data[i].value.toDouble(),
+                            value: 100 - data[i].value.toDouble(),
                             color: const Color(0xFFE4E4E4),
                             radius: 44,
                           ),

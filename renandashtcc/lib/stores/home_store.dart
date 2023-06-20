@@ -20,13 +20,13 @@ class HomeStore extends Store {
   ValueNotifier<List<ListIdhmModel>> dataRankingIdhm = ValueNotifier([]);
 
   int stateSelected = 0;
-  int? isSelected;
+  int? isYearSelected;
   bool isAnalfabetismo = false;
   int index = 2017;
   ValueNotifier<String>? selectedStateText = ValueNotifier<String>("Item 1");
 
   ValueNotifier<String> idhmView = ValueNotifier<String>("");
-  ValueNotifier<String> analfabetismoView = ValueNotifier<String>("");
+  ValueNotifier<String> illiteracyDataView = ValueNotifier<String>("");
   ValueNotifier<String> rendaView = ValueNotifier<String>("");
   ValueNotifier<String> espVidaView = ValueNotifier<String>("");
   ValueNotifier<double> espVidaHomemView = ValueNotifier<double>(0);
@@ -40,7 +40,7 @@ class HomeStore extends Store {
   ValueNotifier<double> analfabetismoNegrosView = ValueNotifier<double>(0);
   ValueNotifier<double> analfabetismoBrancosView = ValueNotifier<double>(0);
   ValueNotifier<String> rendaHomemView = ValueNotifier<String>("");
-  ValueNotifier<String> rendaMulherView = ValueNotifier<String>("");
+  ValueNotifier<String> rendaMulheresView = ValueNotifier<String>("");
   ValueNotifier<String> rendaNegrosView = ValueNotifier<String>("");
   ValueNotifier<String> rendaBrancosView = ValueNotifier<String>("");
   ValueNotifier<String> textDataSelected = ValueNotifier<String>("Esperança de Vida ao nascer.");

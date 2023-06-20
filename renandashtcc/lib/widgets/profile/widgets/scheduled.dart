@@ -14,13 +14,6 @@ class Scheduled extends StatefulWidget {
 }
 
 class _ScheduledState extends State<Scheduled> {
-// final List<ScheduledModel> scheduled = [
-//     ScheduledModel(city: 'BRASÍLIA', idh: 0.814),
-//     ScheduledModel(city: 'SÃO PAULO', idh: 0.806),
-//     ScheduledModel(city: 'SANTA CATARINA', idh: 0.792),
-//     ScheduledModel(city: 'MINAS GERAIS', idh: 0.774),
-//     ScheduledModel(city: 'ESPIRITO SANTO', idh: 0.771),
-//   ];
   Controller controller = GetIt.I.get<Controller>();
 
   @override

@@ -60,15 +60,16 @@ class _ActivityDetailsCardState extends State<ActivityDetailsCard> {
                     children: [
                       SvgPicture.asset(
                         store.health.value[i].icon,
-                        height: 30, // Defina o tamanho do ícone aqui
+                        height: 30, 
+                        color: store.health.value[i].color,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 15, bottom: 4),
                         child: Text(
                           store.health.value[i].value,
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontSize: 18,
-                            color: Color.fromARGB(255, 37, 17, 148),
+                            color: store.health.value[i].color,
                             fontWeight: FontWeight.w600,
                           ),
                         ),

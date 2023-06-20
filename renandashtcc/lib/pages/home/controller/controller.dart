@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/repositories/repository_impl.dart';
 import 'package:flutter_dashboard/stores/home_store.dart';
 
@@ -30,7 +31,7 @@ class Controller {
         case 2017:
           store.idhmView.value =
               store.dataInfoList.value[store.stateSelected].idhm2017.toString();
-          store.analfabetismoView.value = store
+          store.illiteracyDataView.value = store
               .dataInfoList.value[store.stateSelected].analfabetismo2017
               .toString();
           store.rendaView.value = store
@@ -53,7 +54,7 @@ class Controller {
           store.rendaHomemView.value = store
               .dataInfoList.value[store.stateSelected].rendaHomem2017
               .toString();
-          store.rendaMulherView.value = store
+          store.rendaMulheresView.value = store
               .dataInfoList.value[store.stateSelected].rendaMulher2017
               .toString();
           store.rendaNegrosView.value = store
@@ -74,7 +75,7 @@ class Controller {
         case 2018:
           store.idhmView.value =
               store.dataInfoList.value[store.stateSelected].idhm2018.toString();
-          store.analfabetismoView.value = store
+          store.illiteracyDataView.value = store
               .dataInfoList.value[store.stateSelected].analfabetismo2018
               .toString();
           store.rendaView.value = store
@@ -97,7 +98,7 @@ class Controller {
           store.rendaHomemView.value = store
               .dataInfoList.value[store.stateSelected].rendaHomem2018
               .toString();
-          store.rendaMulherView.value = store
+          store.rendaMulheresView.value = store
               .dataInfoList.value[store.stateSelected].rendaMulher2018
               .toString();
           store.rendaNegrosView.value = store
@@ -118,7 +119,7 @@ class Controller {
         case 2019:
           store.idhmView.value =
               store.dataInfoList.value[store.stateSelected].idhm2019.toString();
-          store.analfabetismoView.value = store
+          store.illiteracyDataView.value = store
               .dataInfoList.value[store.stateSelected].analfabetismo2019
               .toString();
           store.rendaView.value = store
@@ -141,7 +142,7 @@ class Controller {
           store.rendaHomemView.value = store
               .dataInfoList.value[store.stateSelected].rendaHomem2019
               .toString();
-          store.rendaMulherView.value = store
+          store.rendaMulheresView.value = store
               .dataInfoList.value[store.stateSelected].rendaMulher2019
               .toString();
           store.rendaNegrosView.value = store
@@ -162,7 +163,7 @@ class Controller {
         case 2020:
           store.idhmView.value =
               store.dataInfoList.value[store.stateSelected].idhm2020.toString();
-          store.analfabetismoView.value = store
+          store.illiteracyDataView.value = store
               .dataInfoList.value[store.stateSelected].analfabetismo2020
               .toString();
           store.rendaView.value = store
@@ -185,7 +186,7 @@ class Controller {
           store.rendaHomemView.value = store
               .dataInfoList.value[store.stateSelected].rendaHomem2020
               .toString();
-          store.rendaMulherView.value = store
+          store.rendaMulheresView.value = store
               .dataInfoList.value[store.stateSelected].rendaMulher2020
               .toString();
           store.rendaNegrosView.value = store
@@ -206,7 +207,7 @@ class Controller {
         case 2021:
           store.idhmView.value =
               store.dataInfoList.value[store.stateSelected].idhm2021.toString();
-          store.analfabetismoView.value = store
+          store.illiteracyDataView.value = store
               .dataInfoList.value[store.stateSelected].analfabetismo2021
               .toString();
           store.rendaView.value = store
@@ -229,7 +230,7 @@ class Controller {
           store.rendaHomemView.value = store
               .dataInfoList.value[store.stateSelected].rendaHomem2021
               .toString();
-          store.rendaMulherView.value = store
+          store.rendaMulheresView.value = store
               .dataInfoList.value[store.stateSelected].rendaMulher2021
               .toString();
           store.rendaNegrosView.value = store
@@ -250,7 +251,7 @@ class Controller {
         default:
           store.idhmView.value =
               store.dataInfoList.value[0].idhm2017.toString();
-          store.analfabetismoView.value =
+          store.illiteracyDataView.value =
               store.dataInfoList.value[0].analfabetismo2017.toString();
           store.rendaView.value =
               store.dataInfoList.value[0].renda2017.toString();
@@ -268,7 +269,7 @@ class Controller {
               store.dataInfoList.value[0].analfabetismoBrancos2017;
           store.rendaHomemView.value =
               store.dataInfoList.value[0].rendaHomem2017.toString();
-          store.rendaMulherView.value =
+          store.rendaMulheresView.value =
               store.dataInfoList.value[0].rendaMulher2017.toString();
           store.rendaNegrosView.value =
               store.dataInfoList.value[0].rendaNegros2017.toString();
@@ -286,6 +287,7 @@ class Controller {
 
       for (var i = 0; i < sucess.length; i++) {
         if (store.index == 2017) {
+          
           store.dataRankingIdhm.value.add(ListIdhmModel(
             state: sucess[i].territorialidades,
             idhm: store.dataInfoList.value[i].idhm2017,
@@ -352,23 +354,23 @@ class Controller {
         HealthModel(
             icon: 'assets/svg/idhm.svg',
             value: store.idhmView.value,
-            title: "IDHM"),
+            title: "IDHM", color: Colors.blue),
         HealthModel(
             icon: 'assets/svg/livro.svg',
-            value: "${store.analfabetismoView.value} %",
-            title: "ANALFABETISMO"),
+            value: "${store.illiteracyDataView.value} %",
+            title: "ANALFABETISMO", color: Colors.purple),
         HealthModel(
             icon: 'assets/svg/renda.svg',
             value: "R\$ ${store.rendaView.value}",
-            title: "RENDA"),
+            title: "RENDA", color: Colors.yellow),
         HealthModel(
             icon: 'assets/svg/vida.svg',
             value: "${store.espVidaView.value} %",
-            title: "ESPERANÇA DE VIDA"),
+            title: "ESPERANÇA DE VIDA", color: Colors.orange),
         HealthModel(
             icon: 'assets/svg/pobre.svg',
             value: "${store.extremaProbrezaView.value}%",
-            title: "EXTREMA POBREZA"),
+            title: "EXTREMA POBREZA", color: Colors.greenAccent),
       ];
 
       store.health.value = healthDetails;
